@@ -1,7 +1,4 @@
 # Project-2
-Heart attack prediction
-<br>
-
 import numpy as np
 <br>
 import pandas as pd
