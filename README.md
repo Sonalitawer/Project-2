@@ -184,6 +184,131 @@ df4.corr()["avg_glucose_level"].sort_values().plot(kind="bar")
 #2.glucose level shows a spike for people with: stroke,heart_disease,BMI,hypertension,age
 <br>
 
+#Let us plot the heat map for correlation 
+<br>
+plt.rcParams["figure.figsize"]=(10,10)
+<br>
+sns.heatmap(df4.corr(),cmap="autumn",annot=True,fmt=".1f")
+<br>
+
+df4.describe()
+<br>
+
+sns.countplot(x="children",data=df4,hue="stroke")
+<br>
+# no children has stroke probabilty according to data
+<br>
+# sns.countplot(x="Male",data=df4,hue="stroke")
+<br>
+
+df4.head()
+<br>
+
+print(df4["smoking_status"].unique())
+<br>
+
+plt.rcParams["figure.figsize"]=(15,15)
+<br>
+plt.subplot(221)
+<br>
+sns.countplot(x="smoking_status",data=df4,hue="stroke")
+<br>
+
+plt.subplot(222)
+<br>
+sns.countplot(x="smoking_status",data=df4,hue="heart_disease")
+<br>
+
+plt.rcParams["figure.figsize"]=(15,15)
+<br>
+
+plt.subplot(221)
+<br>
+plt.title("Female_stroke_Analysis")
+<br>
+sns.countplot(x="Female",data=df4,hue="stroke")
+<br>
+
+
+plt.subplot(222)
+<br>
+plt.title("Male_stroke_Analysis")
+<br>
+sns.countplot(x="Male",data=df4,hue="stroke")
+<br>
+
+
+plt.subplot(223)
+<br>
+plt.title("Female_Heart_Disease_Analysis")
+<br>
+sns.countplot(x="Female",data=df4,hue="heart_disease")
+<br>
+
+plt.subplot(224)
+<br>
+plt.title("Male_Heart_Disease_Analysis")
+<br>
+sns.countplot(x="Male",data=df4,hue="heart_disease")
+<br>
+
+# BASED ON THE ABOVE PLOTS:
+<br>
+# CONCLUSIONS CAN BE DRAWN SUCH AS:
+<br>
+# 1. THOSE WHO NEVER SMOKED COMPARED TO OTHERS HAVE A GREATER PROBABILITY OF STROKE AND HEART ATTACK.
+<br>
+# 2. FEMALES HAVE GREATER PROBABILITY FOR STROKES COMPARED TO MALE
+<br>
+# 3. AND MEN HAVE HIGHER HEART DISEASE CHANCES IN COMPARISON TO WOMEN.
+<br>
+
+# df4.drop(["smoking_status"],axis=1,inplace=True)
+<br>
+X = df4.drop(["stroke"],axis = 1)
+<br>
+y = df4["stroke"]
+<br>
+
+from sklearn.model_selection import train_test_split
+<br>
+
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=2)
+<br>
+
+X_train.shape
+<br>
+
+from sklearn.linear_model import LogisticRegression
+<br>
+
+log = LogisticRegression(max_iter=600)
+<br>
+
+log.fit(X_train,y_train)
+<br>
+
+y_pred = log.predict(X_test)
+<br>
+
+log.score(X_test,y_test)
+<br>
+
+from sklearn.metrics import accuracy_score,confusion_matrix
+<br>
+
+accuracy = accuracy_score(y_test,y_pred)
+<br>
+
+conf_matrix = confusion_matrix(y_test,y_pred)
+<br>
+
+print(f"ACCURACY_SCORE is {accuracy}.")
+<br>
+print(f"CONFUSION_MATRIX is: \n {conf_matrix}")
+<br>
+
+
 
 
 
