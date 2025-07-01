@@ -128,5 +128,64 @@ dummies1.head()
 df3 = pd.concat([df3,dummies1],axis=1)
 <br>
 
-
+df3.drop(["work_type"],1,inplace=True)
 <br>
+
+df3.head()
+<br>
+
+# Married people and heart_stroke relation is pretty meaningless.Hence dropping the column
+<br>
+df3.drop(["ever_married"],axis=1,inplace=True)
+<br>
+df3.drop(["Residence_type"],axis=1,inplace=True) # Not required for heart_stroke_prediction
+<br>
+
+df3.head()
+<br>
+
+df3["smoking_status"].unique()
+<br>
+
+dummies2 = pd.get_dummies(df3["smoking_status"])
+<br>
+dummies2.head()
+<br>
+
+df3 = pd.concat([df3,dummies2],axis=1)
+<br>
+
+df3.drop(["smoking_status"],1)
+<br>
+
+df4 = df3.copy()
+<br>
+df4.head(5)
+<br>
+
+plt.subplot(221)
+<br>
+plt.rcParams["figure.figsize"]= (20,20)
+<br>
+plt.title("Stroke Correlation")
+<br>
+df4.corr()["stroke"].sort_values().plot(kind="bar")
+<br>
+
+plt.subplot(222)
+<br>
+plt.title("Average Glucose Correlation")
+<br>
+df4.corr()["avg_glucose_level"].sort_values().plot(kind="bar")
+<br>
+
+#1.Based on above Stroke has good correlation with factors such as Heart_disease,avg_glucose level,hypertension,age*
+<br>
+#2.glucose level shows a spike for people with: stroke,heart_disease,BMI,hypertension,age
+<br>
+
+
+
+
+
+
